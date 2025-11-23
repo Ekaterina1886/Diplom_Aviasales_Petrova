@@ -46,8 +46,8 @@ def search_payload(base_payload):
     "origin,destination,date",
     [
         ("MOW", "LED", "2025-12-01"),
-        ("MOW", "IST", "2025-11-20"),
-        ("LED", "AYT", "2025-10-15"),
+        ("MOW", "IST", "2025-12-20"),
+        ("LED", "AYT", "2025-12-15"),
     ]
 )
 def test_search_success(api, headers, search_payload, origin, destination, date):
