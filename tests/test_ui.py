@@ -1,8 +1,9 @@
+import pytest
 from pages.main_page import MainPage
 from pages.results_page import ResultsPage
 import allure
 
-
+@pytest.mark.ui
 @allure.title("Поиск авиабилетов отображает результаты")
 def test_search_flights(driver):
     main = MainPage(driver)

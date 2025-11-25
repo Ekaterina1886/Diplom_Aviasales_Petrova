@@ -2,6 +2,8 @@ import pytest
 import allure
 from pages.aviasales_api import AviasalesAPI
 
+@pytest.mark.api
+
 @pytest.fixture
 def api():
     return AviasalesAPI()

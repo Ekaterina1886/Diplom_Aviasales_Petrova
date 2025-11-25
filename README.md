@@ -17,9 +17,12 @@
 pip install -r requirements.txt
 
 
-Запуск всех тестов:
+Запуск тестов:
 
-pytest -s -v
+pytest -s -v  - все тесты
+pytest -m ui  - только ui
+pytest -m api - только api
+
 
 Командa 
 pytest --alluredir=./allure_result_all
