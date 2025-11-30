@@ -1,7 +1,8 @@
 import pytest
+import allure
 from pages.main_page import MainPage
 from pages.results_page import ResultsPage
-import allure
+
 
 @pytest.mark.ui
 @allure.title("Поиск авиабилетов отображает результаты")
@@ -10,7 +11,7 @@ def test_search_flights(driver):
     results = ResultsPage(driver)
 
     main.open_main()
-    main.set_origin("Москва")
+    main.set_origin("Белград")
     main.set_destination("Сочи")
     main.select_date("2025-12-20")
     main.click_search()
@@ -28,13 +29,13 @@ def test_low_fare_calendar(driver):
     assert "calendar" in driver.current_url
 
 
-@allure.title("Фильтр 'Только прямые рейсы' работает корректно")
+@allure.title("Фильтр 'Без пересадок' работает корректно")
 def test_direct_flights_filter(driver):
     main = MainPage(driver)
     results = ResultsPage(driver)
 
     main.open_main()
-    main.set_origin("Москва")
+    main.set_origin("Белград")
     main.set_destination("Санкт-Петербург")
     main.click_search()
 
@@ -44,13 +45,12 @@ def test_direct_flights_filter(driver):
     assert results.all_tickets_are_direct()
 
 
-
 @allure.title("Переключение языка сайта работает")
 def test_change_language(driver):
     main = MainPage(driver)
 
     main.open_main()
-    main.change_language_to_english()
+    main.change_site_to_english()
 
     assert "Flights" in driver.page_source
 
@@ -60,10 +60,13 @@ def test_swap_cities(driver):
     main = MainPage(driver)
 
     main.open_main()
-    main.set_origin("Москва")
+    main.set_origin("Белград")
     main.set_destination("Сочи")
 
     main.swap_cities()
 
-    assert main.driver.find_element(*main.ORIGIN).get_attribute("value") == "Сочи"
-    assert main.driver.find_element(*main.DESTINATION).get_attribute("value") == "Москва"
+    origin_value = main.driver.find_element(*main.ORIGIN).get_attribute("value")
+    destination_value = main.driver.find_element(*main.DESTINATION).get_attribute("value")
+
+    assert origin_value == "Сочи"
+    assert destination_value == "Белград"

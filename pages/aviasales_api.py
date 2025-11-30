@@ -1,5 +1,5 @@
 import allure
-from base_api import BaseAPI
+from .base_api import BaseAPI
 
 
 class AviasalesAPI(BaseAPI):

@@ -28,3 +28,6 @@ class BasePage:
             elem = self.wait_visible(locator)
             elem.clear()
             elem.send_keys(text)
+
+    def execute_js_click(self, element):
+        self.driver.execute_script("arguments[0].click();", element)
