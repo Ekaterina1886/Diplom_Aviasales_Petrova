@@ -1,24 +1,25 @@
-from selenium.webdriver.common.by import By
-from .main_page import BasePage
 import allure
+from selenium.webdriver.common.by import By
+from .base_page import BasePage
 
 
 class ResultsPage(BasePage):
 
-    TICKET = (By.CSS_SELECTOR, "[data-test-id='ticket']")
-    DIRECT_FLIGHTS_ONLY = (By.CSS_SELECTOR, "[data-test-id='direct-flights-only']")
+    RESULTS_LIST = (By.CSS_SELECTOR, "[data-test-id='results-list']")
+    TICKET_ITEM = (By.CSS_SELECTOR, "[data-test-id='ticket-item']")
+    DIRECT_FLIGHTS_CHECKBOX = (By.CSS_SELECTOR, "[data-test-id='direct-flights-checkbox']")
+    DIRECT_FLIGHT_INDICATOR = (By.CSS_SELECTOR, "[data-test-id='direct-flight']")
 
+    @allure.step("Дождаться загрузки результатов")
     def wait_results(self):
-        with allure.step("Ожидаем отображения результатов"):
-            self.wait_visible(self.TICKET)
+        self.wait_visible(self.RESULTS_LIST)
 
+    @allure.step("Применить фильтр 'Только прямые рейсы'")
     def filter_direct(self):
-        self.click(self.DIRECT_FLIGHTS_ONLY)
+        self.click(self.DIRECT_FLIGHTS_CHECKBOX)
 
-    def all_tickets_are_direct(self) -> bool:
-        with allure.step("Проверяем, что все билеты прямые"):
-            tickets = self.driver.find_elements(*self.TICKET)
-            for t in tickets:
-                if "без пересадок" not in t.text.lower():
-                    return False
-            return True
+    @allure.step("Проверить что все билеты - прямые рейсы")
+    def all_tickets_are_direct(self):
+        tickets = self.driver.find_elements(*self.TICKET_ITEM)
+        direct_indicators = self.driver.find_elements(*self.DIRECT_FLIGHT_INDICATOR)
+        return len(tickets) == len(direct_indicators)

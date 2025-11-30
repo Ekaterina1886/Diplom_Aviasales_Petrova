@@ -7,9 +7,9 @@ import allure
 @pytest.mark.parametrize(
     "origin,destination,date",
     [
-        ("BEG", "MOW", "2025-12-14"),
-        ("BEG", "LED", "2025-12-01"),
-        ("BEG", "KGD", "2025-12-12"),
+        ("LED", "MOW", "2025-12-14"),
+        ("MOW", "LED", "2025-12-01"),
+        ("LED", "KGD", "2025-12-12"),
     ]
 )
 def test_search_success(api, api_headers, search_payload, origin, destination, date):
@@ -27,7 +27,7 @@ def test_search_success(api, api_headers, search_payload, origin, destination, d
 @allure.feature("Поиск билетов")
 @allure.story("Структура ответа")
 def test_response_structure(api, api_headers, search_payload):
-    payload = search_payload("BEG", "MOW", "2025-12-14")
+    payload = search_payload("LED", "MOW", "2025-12-14")
 
     resp = api.start_search(payload, api_headers)
 
@@ -46,7 +46,7 @@ def test_invalid_date(api, api_headers, base_payload):
     payload = base_payload.copy()
     payload["search_params"]["directions"] = [
         {
-            "origin": "BEG",
+            "origin": "LED",
             "destination": "MOW",
             "date": "31-12-2025",
             "is_origin_airport": False,
@@ -81,7 +81,7 @@ def test_multiple_segments(api, api_headers, base_payload):
     payload = base_payload.copy()
     payload["search_params"]["directions"] = [
         {
-            "origin": "BEG",
+            "origin": "MOW",
             "destination": "IST",
             "date": "2025-12-20",
             "is_origin_airport": False,
@@ -99,5 +99,3 @@ def test_multiple_segments(api, api_headers, base_payload):
 
     assert resp.status_code == 200
     assert "search_id" in resp.json()
-
-
