@@ -35,7 +35,7 @@ def test_pattaya_entry_rules(driver):
 
     with allure.step("Проверить отображение всплывающего окна с заголовком"):
         popup_title = main.get_entry_rules_popup_title()
-        assert "Правила въезда в Тайланд" in popup_title
+        assert "Правила въезда в Таиланд" in popup_title
 
 @allure.title("Горячие билеты открываются")
 def test_hot_tickets(driver):
