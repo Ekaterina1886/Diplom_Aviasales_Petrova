@@ -5,8 +5,8 @@ from .base_page import BasePage
 
 class ResultsPage(BasePage):
 
-    RESULTS_LIST = (By.CSS_SELECTOR, "[data-test-id='results-list']")
-    TICKET_ITEM = (By.CSS_SELECTOR, "[data-test-id='ticket-item']")
+    RESULTS_LIST = (By.CSS_SELECTOR, "[data-test-id='search-results-items-list']")
+    TICKET_ITEM = (By.CSS_SELECTOR, "[data-test-id='direct-tickets-schedule-container']")
     DIRECT_FLIGHTS_CHECKBOX = (By.CSS_SELECTOR, "[data-test-id='direct-flights-checkbox']")
     DIRECT_FLIGHT_INDICATOR = (By.CSS_SELECTOR, "[data-test-id='direct-flight']")
 
